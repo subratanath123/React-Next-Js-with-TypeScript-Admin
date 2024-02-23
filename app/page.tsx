@@ -1,77 +1,168 @@
 'use client'
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import ReportCard from "@/components/ReportCard";
-import Table from "@/components/Table";
 import LineChart from "@/components/LineChart";
-import {any} from "prop-types";
+import axios from "axios";
 
 export default function Dashboard() {
 
-    const salesReportProps = {
-        subject: 'Sales',
-        reportTypeOption: 'Sales',
-        amount: 1243,
-        timeRange: 'Monthly',
-        deviation: 10,
-        percentage: 80
-    };
-
-    const customerReportProps = {
-        subject: 'Customer',
-        reportTypeOption: 'Customer',
-        amount: 135,
-        timeRange: 'Monthly',
-        deviation: 10,
-        percentage: 80
-    };
-
-    const revenueReportProps = {
-        subject: 'Revenue',
-        reportTypeOption: 'Revenue',
-        amount: 137,
-        timeRange: 'Monthly',
-        deviation: 10,
-        percentage: 80
-    };
-
-    const [state, setState] = useState({
-        name: '',
-        details: '',
-        review: '',
-        photo: ''
+    const [salesReportProps, setSalesReportProps] = useState({
+        statType: 'Sales',
+        unit: 0,
+        statRange: 'Monthly',
+        increaseInPercentage: 0,
+        onTimeRangeSelection: (e: React.MouseEvent<HTMLButtonElement>, statRange: any) => {
+            getStatistics('Sales', statRange);
+            getInsights('Sales', statRange);
+        }
     });
 
-    const headers = ['Invoice ID', 'Customer Name', 'Purchase Date', 'Expiry date', 'Price', 'Status'];
-    const linkColumns: string[] = [];
-    const rows: string[][] = [
-        ['1', 'John Doe', '11/11/11', '11/11/11', '50.25', 'Expired'],
-        ['2', 'Jane Smith', '12/12/12', '11/11/11', '30.99', 'Active'],
-        ['3', 'Bob Johnson', '13/13/13', '11/11/11', '75.50', 'Expired']
-    ];
+    const [customerReportProps, setCustomerReportProps] = useState({
+        statType: 'Customer',
+        unit: 0,
+        statRange: 'Monthly',
+        increaseInPercentage: 0,
+        onTimeRangeSelection: (e: React.MouseEvent<HTMLButtonElement>, statRange: any) => {
+            getStatistics('Customer', statRange);
+            getInsights('Customer', statRange);
+        }
+    });
+
+    const [revenueReportProps, setRevenueReportProps] = useState({
+        statType: 'Revenue',
+        unit: 0,
+        statRange: 'Monthly',
+        increaseInPercentage: 0,
+        onTimeRangeSelection: (e: React.MouseEvent<HTMLButtonElement>, statRange: any) => {
+            getStatistics('Revenue', statRange);
+            getInsights('Revenue', statRange);
+        }
+    });
+
+    function getStatistics(statType: string, statRange: string) {
+        axios
+            .get(process.env.backendserver + '/statistics?statType=' + statType + "&statRange=" + statRange)
+            .then((response: any) => {
+                if (statType == 'Sales') {
+                    setSalesReportProps({
+                        ...salesReportProps,
+                        unit: response.data.unit,
+                        statRange: statRange,
+                        increaseInPercentage: response.data.increaseInPercentage
+                    })
+                } else if (statType == 'Customer') {
+                    setCustomerReportProps({
+                        ...customerReportProps,
+                        unit: response.data.unit,
+                        statRange: statRange,
+                        increaseInPercentage: response.data.increaseInPercentage
+                    })
+                } else if (statType == 'Revenue') {
+                    setRevenueReportProps({
+                        ...revenueReportProps,
+                        unit: response.data.unit,
+                        statRange: statRange,
+                        increaseInPercentage: response.data.increaseInPercentage
+                    })
+                }
+
+            })
+            .catch((error: any) => {
+                console.error('Statistics Fetching failed:', error);
+            });
+    }
+
+
+    useEffect(() => {
+        getStatistics('Customer', 'Daily');
+        getStatistics('Sales', 'Daily');
+        getStatistics('Revenue', 'Daily');
+
+        getInsights('Revenue', 'Daily');
+        getInsights('Sales', 'Daily');
+        getInsights('Customer', 'Daily');
+
+    }, []);
 
 
     //chart data
-    const type: string = 'line';
-    const labels: string[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const datasets: any[] = [{
-        data: [86, 114, 106, 106, 107, 111, 133],
-        label: "Customer",
+    const [revenueInsightProps, setRevenueInsightProps] = useState({
+        statType: 'Revenue',
+        statRange: 'Monthly',
+        dataList: [],
+        labelList: []
+    });
+
+    const [customerInsightProps, setCustomerInsightProps] = useState({
+        statType: 'Customer',
+        statRange: 'Monthly',
+        dataList: [],
+        labelList: []
+    });
+
+    const [salesInsightProps, setSalesInsightProps] = useState({
+        statType: 'Sales',
+        statRange: 'Monthly',
+        dataList: [],
+        labelList: []
+    });
+
+    const customerDatasets: any[] = [{
+        data: customerInsightProps.dataList,
+        label: customerInsightProps.statType,
         borderColor: "#3e95cd",
         backgroundColor: "#7bb6dd",
         fill: false,
-    }, {
-        data: [70, 90, 44, 60, 83, 90, 100],
-        label: "Revenue",
+    }];
+
+    const revenueDatasets: any[] = [{
+        data: revenueInsightProps.dataList,
+        label: revenueInsightProps.statType,
         borderColor: "#3cba9f",
         backgroundColor: "#71d1bd",
         fill: false,
-    }, {
-        data: [10, 21, 60, 44, 17, 21, 17],
-        label: "Sales",
+    }];
+
+    const salesDatasets: any[] = [{
+        data: salesInsightProps.dataList,
+        label: salesInsightProps.statType,
         borderColor: "#ffa500",
         backgroundColor: "#ffc04d",
         fill: false,
     }];
+
+    function getInsights(statType: string, statRange: string) {
+        axios
+            .get(process.env.backendserver + '/statistics/insights?statType=' + statType + "&statRange=" + statRange)
+            .then((response: any) => {
+                if (statType == 'Customer') {
+                    setCustomerInsightProps({
+                        ...customerInsightProps,
+                        statRange: statRange,
+                        dataList: response.data.totalList,
+                        labelList: response.data.labelList
+                    })
+                } else if (statType == 'Sales') {
+                    setSalesInsightProps({
+                        ...salesInsightProps,
+                        statRange: statRange,
+                        dataList: response.data.totalList,
+                        labelList: response.data.labelList
+                    })
+                } else if (statType == 'Revenue') {
+                    setRevenueInsightProps({
+                        ...revenueInsightProps,
+                        statRange: statRange,
+                        dataList: response.data.totalList,
+                        labelList: response.data.labelList
+                    })
+                }
+
+            })
+            .catch((error: any) => {
+                console.error('Insights Fetching failed:', error);
+            });
+    }
 
     return (
         <>
@@ -81,12 +172,34 @@ export default function Dashboard() {
                     <div className="col-lg-12">
                         <div className="row">
 
-                            <ReportCard {...salesReportProps}/>
+                            <ReportCard {...salesReportProps} />
                             <ReportCard {...customerReportProps}/>
                             <ReportCard {...revenueReportProps}/>
 
-                            <Table title="Recent Subscription" headers={headers} rows={rows} linkColumns={linkColumns}/>
-                            <LineChart chartTitle="Insights" labels={labels} type={type} datasets={datasets}/>
+                        </div>
+
+                        <div className="row">
+
+                            <div className="col-lg-4">
+                                <LineChart chartTitle={`Sales Insights (${salesInsightProps.statRange})`}
+                                           labels={salesInsightProps.labelList} type="line"
+                                           datasets={salesDatasets}/>
+                            </div>
+
+                            <div className="col-lg-4">
+                                <LineChart chartTitle={`Customer Insights (${customerInsightProps.statRange})`}
+                                           labels={customerInsightProps.labelList}
+                                           type="line"
+                                           datasets={customerDatasets}/>
+                            </div>
+
+                            <div className="col-lg-4">
+                                <LineChart chartTitle={`Revenue Insights (${revenueInsightProps.statRange})`}
+                                           labels={revenueInsightProps.labelList}
+                                           type="line"
+                                           datasets={revenueDatasets}/>
+                            </div>
+
                         </div>
                     </div>
                 </div>

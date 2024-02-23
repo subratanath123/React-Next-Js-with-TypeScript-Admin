@@ -4,7 +4,7 @@ interface AlertProps {
     title: string;
     message: string;
     additionalMessage: string;
-    type: "success" | "danger" | "warning" | undefined;
+    type: "success" | "danger" | "warning" | string;
 }
 
 const Alert: FC<AlertProps> = ({title, message, type, additionalMessage}) => {

@@ -10,11 +10,10 @@ import {useRouter} from "next/navigation";
 import axios from "axios";
 import Image from "@/components/Image";
 
-export default function BannerCreate() {
+export default function CreateVipOffer() {
     const router = useRouter();
 
     const [state, setState] = useState<{
-
         submitting: boolean,
         link: string,
         order: string,
@@ -36,7 +35,7 @@ export default function BannerCreate() {
         validityTo: '',
         bannerDetails: '',
         bannerCategory: 'SlideBanner',
-        offerCategory: 'CasinoOffer'
+        offerCategory: 'VipOffer'
     });
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -140,7 +139,8 @@ export default function BannerCreate() {
                 <Input name="link" title="Affiliation Link" type="text" value={state.link} submitting={state.submitting}
                        onInputChange={handleInputChange}/>
 
-                <InputSelect name="bannerCategory" label="Banner Category" options={bannerCategoryOptions}
+                <InputSelect name="bannerCategory" label="Banner Category" options={[
+                    {value: 'Vip Offer', label: 'Vip Offer'}]}
                              submitting={state.submitting} value={state.bannerCategory}
                              handleOptionSelect={handleOptionSelectChange}/>
 

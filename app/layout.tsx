@@ -120,13 +120,8 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
                             <li>
                                 <hr className="dropdown-divider"/>
                             </li>
-                            <li><Link className="dropdown-item d-flex align-items-center" href="users-profile.html"> <i
+                            <li><Link className="dropdown-item d-flex align-items-center" href="/profile/"> <i
                                 className="bi bi-person"></i> <span>My Profile</span> </Link></li>
-                            <li>
-                                <hr className="dropdown-divider"/>
-                            </li>
-                            <li><Link className="dropdown-item d-flex align-items-center" href="users-profile.html"> <i
-                                className="bi bi-gear"></i> <span>Account Settings</span> </Link></li>
                             <li>
                                 <hr className="dropdown-divider"/>
                             </li>
@@ -170,6 +165,41 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
                         </li>
                     </ul>
                 </li>
+                <li className="nav-item">
+                    <Link className="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                        <i className="bi bi-journal-text"></i>
+                        <span>Vip Offer</span>
+                        <i className="bi bi-chevron-down ms-auto"></i>
+                    </Link>
+                    <ul id="forms-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <Link href="/banner/vipOffer/create"> <i className="bi bi-circle"></i>
+                                <span>Create VIP Offer</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/banner/vipOffer/list"> <i className="bi bi-circle"></i>
+                                <span>List</span>
+                            </Link>
+                        </li>
+                    </ul>
+                </li>
+
+                <li className="nav-item">
+                    <Link className="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                        <i className="bi bi-journal-text"></i>
+                        <span>Customer</span>
+                        <i className="bi bi-chevron-down ms-auto"></i>
+                    </Link>
+
+                    <ul id="forms-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <Link href="/customer/list"> <i className="bi bi-circle"></i>
+                                <span>Customer List</span>
+                            </Link>
+                        </li>
+                    </ul>
+                </li>
 
 
                 <li className="nav-item">
@@ -198,6 +228,13 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
                     <Link className="nav-link collapsed" href="/aboutus">
                         <i className="bi bi-person"></i>
                         <span>About Us</span>
+                    </Link>
+                </li>
+
+                <li className="nav-item">
+                    <Link className="nav-link collapsed" href="/theme">
+                        <i className="bi bi-person"></i>
+                        <span>Site Theme Background</span>
                     </Link>
                 </li>
 

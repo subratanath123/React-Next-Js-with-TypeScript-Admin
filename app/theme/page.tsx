@@ -8,18 +8,16 @@ import {useRouter} from "next/navigation";
 import axios from "axios";
 import Image from "@/components/Image";
 
-export default function ReviewCreate() {
+export default function Theme() {
     const router = useRouter();
 
     const [state, setState] = useState<{
-        aboutUsDetails: string;
-        id: string;
-        newPhotoList: File[];
-        existingPhotoIdList: any[];
-        deletedPhotoIdList: any[];
-        submitting: boolean;
+        id: string,
+        newPhotoList: File[],
+        existingPhotoIdList: string[],
+        deletedPhotoIdList: string[],
+        submitting: boolean
     }>({
-        aboutUsDetails: '',
         id: '',
         newPhotoList: [],
         existingPhotoIdList: [],
@@ -29,7 +27,7 @@ export default function ReviewCreate() {
 
     useEffect(() => {
         axios
-            .get(process.env.backendserver + '/aboutus')
+            .get(process.env.backendserver + '/theme')
             .then((response) => {
                 const apiData = response.data;
 
@@ -38,13 +36,12 @@ export default function ReviewCreate() {
                     ...prevState,
                     submitting: false,
                     id: apiData.id,
-                    aboutUsDetails: apiData.aboutUsDetails,
                     existingPhotoIdList: apiData.aboutUsPhotoIdList,
                 }));
 
             })
             .catch((error) => {
-                console.error('Aboutus Fetching failed:', error);
+                console.error('Theme Fetching failed:', error);
             });
     }, []);
 
@@ -99,9 +96,8 @@ export default function ReviewCreate() {
 
         const formData = new FormData();
         formData.append('id', state.id);
-        formData.append('aboutUsDetails', state.aboutUsDetails);
 
-        state.newPhotoList.map((photo: any) => {
+        state.newPhotoList.map((photo) => {
             formData.append('photoList', photo);
         })
 
@@ -111,14 +107,14 @@ export default function ReviewCreate() {
         });
 
         axios
-            .post(process.env.backendserver + '/aboutus', formData)
+            .post(process.env.backendserver + '/theme', formData)
             .then((response) => {
                 console.log('About us Created');
 
                 const dataToSend = {
                     type: 'success',
                     title: 'Action Completed',
-                    message: 'About us has been successfully saved',
+                    message: 'Theme has been successfully saved',
                     additionalMessage: 'Please go back to do further action'
                 };
 
@@ -128,7 +124,6 @@ export default function ReviewCreate() {
 
             })
             .catch((error) => {
-                console.error('Review Creation failed:', error);
 
                 setState({
                     ...state,
@@ -139,12 +134,9 @@ export default function ReviewCreate() {
 
     return (
         <>
-            <Form title="About Us">
-                <TextArea title="About Us details" value={state.aboutUsDetails} onTextChange={handleTextChange}
-                          name="aboutUsDetails" submitting={state.submitting}/>
-
+            <Form title="Edit Site Theme">
                 <Image submitting={state.submitting}
-                       imageDownloadUrl={`${process.env.backendserver}/aboutus/image`}
+                       imageDownloadUrl={`${process.env.backendserver}/theme/image`}
                        newBannerPhotoList={state.newPhotoList}
                        existingBannerPhotoIdList={state.existingPhotoIdList}
                        handleNewFileAdd={handleNewFileAdd}

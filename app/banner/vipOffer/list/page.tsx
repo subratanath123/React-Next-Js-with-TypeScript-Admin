@@ -10,7 +10,6 @@ interface Banner {
     id: string;
     link: string;
     bannerCategory: string;
-    offerCategory: string;
     bannerDetails: string;
     order: string;
     validityFrom: string;
@@ -37,10 +36,10 @@ export default function LoadBannerList() {
     )
 }
 
-async function BannerList() {
+ async function BannerList() {
     const router = useRouter();
-    const response = await fetch(process.env.backendserver + "/banner/list", {
-        next: { revalidate: 20 }
+    const response = await fetch(process.env.backendserver + "/banner/vipOffer/list", {
+        next: {revalidate: 20}
     });
 
     const data = await response.json();
@@ -100,7 +99,7 @@ async function BannerList() {
     ];
     return (
         <>
-            <Table key={12} title="Banner List" columns={columns} data={bannerList}/>
+            <Table key={12} title="Vip Offer List" columns={columns} data={bannerList}/>
         </>
     );
 }

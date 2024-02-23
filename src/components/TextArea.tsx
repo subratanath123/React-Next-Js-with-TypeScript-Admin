@@ -4,10 +4,12 @@ import React, { FC, ChangeEvent } from 'react';
 interface TextAreaProps {
     title: string;
     value: string;
+    name: string;
+    submitting: boolean;
     onTextChange: (value: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-const TextArea: FC<TextAreaProps> = ({ title, value, onTextChange }) => {
+const TextArea: FC<TextAreaProps> = ({ title, name, value, onTextChange, submitting }) => {
     const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         onTextChange(e);
     };
@@ -17,7 +19,7 @@ const TextArea: FC<TextAreaProps> = ({ title, value, onTextChange }) => {
             <div className="row mb-3">
                 <label htmlFor="inputPassword" className="col-sm-2 col-form-label">{title}</label>
                 <div className="col-sm-10">
-                    <textarea className="form-control" style={{height: '100px'}} onChange={handleChange}>{value}</textarea>
+                    <textarea name={name} className="form-control" style={{height: '100px'}} onChange={handleChange} disabled={submitting} value={value}></textarea>
                 </div>
             </div>
 

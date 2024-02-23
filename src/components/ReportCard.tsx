@@ -1,16 +1,20 @@
 import React, {FC} from 'react';
-import {ReportTypeOption, reportTypeOptionToIconMap, TimeRangeOption, timeRangeOptionList} from "@/constants/Constants";
+import {reportTypeOptionToIconMap, TimeRangeOption, timeRangeOptionList} from "@/constants/Constants";
 
 interface ReportProps {
-    subject: string;
-    reportTypeOption: ReportTypeOption;
-    amount: number;
-    timeRange: TimeRangeOption;
-    deviation: number;
-    percentage: number;
+    statType: string;
+    unit: number;
+    statRange: TimeRangeOption;
+    increaseInPercentage: number;
+    onTimeRangeSelection: (e: React.MouseEvent<HTMLButtonElement>, timeRangeOption:any) => void
 }
 
-const ReportCard: FC<ReportProps> = ({subject, reportTypeOption,amount, timeRange, deviation, percentage}) => {
+const ReportCard: FC<ReportProps> = ({statType, unit, statRange, increaseInPercentage, onTimeRangeSelection}) => {
+
+    const handleTimeRangeSelection = (e: React.MouseEvent<HTMLButtonElement>, timeRangeOption: any) => {
+        onTimeRangeSelection(e, timeRangeOption);
+    };
+
     return (
         <div className="col-xxl-4 col-xl-12">
 
@@ -24,26 +28,32 @@ const ReportCard: FC<ReportProps> = ({subject, reportTypeOption,amount, timeRang
                         </li>
 
                         {timeRangeOptionList.map((timeRangeOption, index) => (
-                            <li key={timeRangeOption}><a className="dropdown-item" href="#">{timeRangeOption}</a></li>
+                            <li key={timeRangeOption}>
+                                <button className="dropdown-item"
+                                   onClick={(e)=> {handleTimeRangeSelection(e, timeRangeOption)}}>
+                                    {timeRangeOption}
+                                </button>
+                            </li>
                         ))
                         }
                     </ul>
                 </div>
 
                 <div className="card-body">
-                    <h5 className="card-title">{subject} <span> | {timeRange} </span></h5>
+                    <h5 className="card-title">{statType} <span> | {statRange} </span></h5>
 
                     <div className="d-flex align-items-center">
                         <div className="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                            <i className={`bi bi-${reportTypeOptionToIconMap.get(reportTypeOption)}`}></i>
+                            <i className={`bi bi-${reportTypeOptionToIconMap.get(statType)}`}></i>
                         </div>
                         <div className="ps-3">
-                            <h6>{amount}</h6>
-                            <span className={`text-${percentage < 0 ? 'danger' : 'success'} small pt-1 fw-bold`}>
-                                {percentage}%
+                            <h6>{unit}</h6>
+                            <span
+                                className={`text-${increaseInPercentage < 0 ? 'danger' : 'success'} small pt-1 fw-bold`}>
+                                {increaseInPercentage}%
                             </span>
                             <span className="text-muted small pt-2 ps-1">
-                                {percentage < 0 ? 'decrease' : 'increase'}
+                                {increaseInPercentage < 0 ? 'decrease' : 'increase'}
                             </span>
                         </div>
                     </div>

@@ -1,25 +1,87 @@
 'use client'
 
-import React, {ChangeEvent, useState} from "react";
+import React, {Suspense} from "react";
 import Table from "@/components/Table";
+import {useRouter} from "next/navigation";
+import Skeleton from "react-loading-skeleton";
+import 'react-loading-skeleton/dist/skeleton.css'
 
-export default function BannerList() {
-    const [state, setState] = useState({
-        name: '',
-        details: '',
-        review: '',
-        photo: ''
+interface Review {
+    id: string;
+    clientName: '',
+    clientDetails: '',
+    clientReview: '',
+    clientPhoto: '',
+    stars: '',
+    newClientPhotoList: [],
+    submitting: false
+}
+
+export default function LoadReviewList() {
+    return (
+        <section>
+
+            <Suspense fallback={
+                <>
+                    <div className="spinner-grow" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+
+                    <Skeleton count={10} height={20}/>
+                </>
+            }>
+                <ReviewList/>
+            </Suspense>
+        </section>
+    )
+}
+
+
+ async function ReviewList() {
+    const router = useRouter();
+    const response = await fetch(process.env.backendserver + "/review/list", {
+        next: {revalidate: 20}
     });
 
-    const headers = ['Client Name', 'Client Details', 'Client Review', 'Client Photo',  'Edit'];
-    const rows = [
-        ['Subrata nath', 'Fuck', 'I am bad boy', '', '/review/show/1']
+    const data = await response.json();
+
+    const reviewList = data.map((review: Review) => ({
+        ...review,
+        clickEvent: () => {
+            router.push('/review/show/' + review.id);
+        }
+    }));
+
+    const columns = [
+        {
+            label: 'Client Name',
+            field: 'clientName',
+            width: 150,
+            attributes: {
+                'aria-controls': 'DataTable',
+                'aria-label': 'Name',
+            },
+        },
+        {
+            label: 'Client Details',
+            field: 'clientDetails',
+            width: 270,
+        },
+        {
+            label: 'Client Review',
+            field: 'clientReview',
+            width: 270,
+        },
+        {
+            label: 'Stars',
+            field: 'stars',
+            width: 270,
+        }
     ];
-    const linkColumns = ['Client Photo', 'Edit'];
 
     return (
         <>
-            <Table  title="Review List Table"  headers={headers} rows={rows} linkColumns={linkColumns} />
+            <Table key={12} title="Review List" columns={columns} data={reviewList}/>
         </>
     );
 }

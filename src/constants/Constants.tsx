@@ -1,8 +1,7 @@
 export const timeRangeOptionList = [
     'Daily',
-    'Weekly',
     'Monthly',
-    'Year'
+    'Yearly'
 ];
 
 export type TimeRangeOption = typeof timeRangeOptionList[number];
