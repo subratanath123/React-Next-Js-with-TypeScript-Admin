@@ -9,6 +9,7 @@ import {bannerCategoryOptions, offerTypeOptions} from "@/constants/BannerCategor
 import {useRouter} from "next/navigation";
 import axios from "axios";
 import Image from "@/components/Image";
+import {backendserver} from "@/constants/Constants";
 
 export default function ShowBanner({params}: { params: { id: string } }) {
     const router = useRouter();
@@ -48,7 +49,7 @@ export default function ShowBanner({params}: { params: { id: string } }) {
 
     useEffect(() => {
         axios
-            .get(process.env.backendserver + '/banner/show/' + bannerId)
+            .get(backendserver + '/banner/show/' + bannerId)
             .then((response) => {
                 const apiData = response.data;
 
@@ -163,7 +164,7 @@ export default function ShowBanner({params}: { params: { id: string } }) {
         });
 
         axios
-            .post(process.env.backendserver + '/banner/show/' + bannerId, formData)
+            .post(backendserver + '/banner/show/' + bannerId, formData)
             .then(() => {
                 console.log('Banner Updated');
 
@@ -192,7 +193,7 @@ export default function ShowBanner({params}: { params: { id: string } }) {
         e.preventDefault();
 
         axios
-            .post(process.env.backendserver + '/banner/delete/' + bannerId)
+            .post(backendserver + '/banner/delete/' + bannerId)
             .then(() => {
                 console.log('Banner Deleted');
 
@@ -249,7 +250,7 @@ export default function ShowBanner({params}: { params: { id: string } }) {
                        onInputChange={handleInputChange}/>
 
                 <Image submitting={state.submitting}
-                       imageDownloadUrl={`${process.env.backendserver}/banner/image`}
+                       imageDownloadUrl={`${backendserver}/banner/image`}
                        newBannerPhotoList={state.newBannerPhotoList}
                        existingBannerPhotoIdList={state.existingBannerPhotoIdList}
                        handleNewFileAdd={handleNewFileAdd}

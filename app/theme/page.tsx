@@ -7,6 +7,7 @@ import Button from "@/components/Button";
 import {useRouter} from "next/navigation";
 import axios from "axios";
 import Image from "@/components/Image";
+import {backendserver} from "@/constants/Constants";
 
 export default function Theme() {
     const router = useRouter();
@@ -27,7 +28,7 @@ export default function Theme() {
 
     useEffect(() => {
         axios
-            .get(process.env.backendserver + '/theme')
+            .get(backendserver + '/theme')
             .then((response) => {
                 const apiData = response.data;
 
@@ -107,7 +108,7 @@ export default function Theme() {
         });
 
         axios
-            .post(process.env.backendserver + '/theme', formData)
+            .post(backendserver + '/theme', formData)
             .then((response) => {
                 console.log('About us Created');
 
@@ -136,7 +137,7 @@ export default function Theme() {
         <>
             <Form title="Edit Site Theme">
                 <Image submitting={state.submitting}
-                       imageDownloadUrl={`${process.env.backendserver}/theme/image`}
+                       imageDownloadUrl={`${backendserver}/theme/image`}
                        newBannerPhotoList={state.newPhotoList}
                        existingBannerPhotoIdList={state.existingPhotoIdList}
                        handleNewFileAdd={handleNewFileAdd}

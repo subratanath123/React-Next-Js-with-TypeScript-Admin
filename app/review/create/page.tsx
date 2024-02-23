@@ -8,6 +8,7 @@ import Button from "@/components/Button";
 import Image from "@/components/Image";
 import axios from "axios";
 import {useRouter} from "next/navigation";
+import {backendserver} from "@/constants/Constants";
 
 export default function ReviewCreate() {
     const router = useRouter();
@@ -89,7 +90,7 @@ export default function ReviewCreate() {
         });
 
         axios
-            .post(process.env.backendserver + '/review/create', formData)
+            .post(backendserver + '/review/create', formData)
             .then((response) => {
                 console.log('Banner Created');
 
@@ -128,7 +129,7 @@ export default function ReviewCreate() {
                           name="clientReview" submitting={state.submitting}/>
 
                 <Image submitting={state.submitting}
-                       imageDownloadUrl={`${process.env.backendserver}/review/image`}
+                       imageDownloadUrl={`${backendserver}/review/image`}
                        newBannerPhotoList={state.newClientPhotoList}
                        existingBannerPhotoIdList={[]}
                        handleNewFileAdd={handleNewFileAdd}

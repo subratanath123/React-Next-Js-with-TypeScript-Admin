@@ -8,6 +8,7 @@ import Button from "@/components/Button";
 import Image from "@/components/Image";
 import axios from "axios";
 import {useRouter} from "next/navigation";
+import {backendserver} from "@/constants/Constants";
 
 export default function ReviewEdit({params}: { params: { id: string } }) {
     const router = useRouter();
@@ -39,7 +40,7 @@ export default function ReviewEdit({params}: { params: { id: string } }) {
 
     useEffect(() => {
         axios
-            .get(process.env.backendserver + '/review/show/' + reviewId)
+            .get(backendserver + '/review/show/' + reviewId)
             .then((response) => {
                 const apiData = response.data;
 
@@ -118,7 +119,7 @@ export default function ReviewEdit({params}: { params: { id: string } }) {
         e.preventDefault();
 
         axios
-            .post(process.env.backendserver + '/review/delete/' + reviewId)
+            .post(backendserver + '/review/delete/' + reviewId)
             .then(() => {
                 console.log('Review Deleted');
 
@@ -165,7 +166,7 @@ export default function ReviewEdit({params}: { params: { id: string } }) {
         });
 
         axios
-            .post(process.env.backendserver + '/review/create', formData)
+            .post(backendserver + '/review/create', formData)
             .then((response) => {
                 console.log('Review Created');
 
@@ -217,7 +218,7 @@ export default function ReviewEdit({params}: { params: { id: string } }) {
                           name="clientReview" submitting={state.submitting}/>
 
                 <Image submitting={state.submitting}
-                       imageDownloadUrl={`${process.env.backendserver}/review/image`}
+                       imageDownloadUrl={`${backendserver}/review/image`}
                        newBannerPhotoList={state.newClientPhotoList}
                        existingBannerPhotoIdList={state.existingClientPhotoIdList}
                        handleNewFileAdd={handleNewFileAdd}

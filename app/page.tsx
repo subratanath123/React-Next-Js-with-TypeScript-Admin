@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import ReportCard from "@/components/ReportCard";
 import LineChart from "@/components/LineChart";
 import axios from "axios";
+import {backendserver} from "@/constants/Constants";
 
 export default function Dashboard() {
 
@@ -41,7 +42,7 @@ export default function Dashboard() {
 
     function getStatistics(statType: string, statRange: string) {
         axios
-            .get(process.env.backendserver + '/statistics?statType=' + statType + "&statRange=" + statRange)
+            .get(backendserver + '/statistics?statType=' + statType + "&statRange=" + statRange)
             .then((response: any) => {
                 if (statType == 'Sales') {
                     setSalesReportProps({
@@ -133,7 +134,7 @@ export default function Dashboard() {
 
     function getInsights(statType: string, statRange: string) {
         axios
-            .get(process.env.backendserver + '/statistics/insights?statType=' + statType + "&statRange=" + statRange)
+            .get(backendserver + '/statistics/insights?statType=' + statType + "&statRange=" + statRange)
             .then((response: any) => {
                 if (statType == 'Customer') {
                     setCustomerInsightProps({

@@ -9,6 +9,7 @@ import {bannerCategoryOptions, offerTypeOptions} from "@/constants/BannerCategor
 import {useRouter} from "next/navigation";
 import axios from "axios";
 import Image from "@/components/Image";
+import {backendserver} from "@/constants/Constants";
 
 export default function CreateVipOffer() {
     const router = useRouter();
@@ -108,7 +109,7 @@ export default function CreateVipOffer() {
         });
 
         axios
-            .post(process.env.backendserver + '/banner/create', formData)
+            .post(backendserver + '/banner/create', formData)
             .then((response) => {
                 console.log('Banner Created');
 
@@ -156,7 +157,7 @@ export default function CreateVipOffer() {
                        onInputChange={handleInputChange}/>
 
                 <Image submitting={state.submitting}
-                       imageDownloadUrl={`${process.env.backendserver}/banner/image`}
+                       imageDownloadUrl={`${backendserver}/banner/image`}
                        newBannerPhotoList={state.newBannerPhotoList}
                        existingBannerPhotoIdList={[]}
                        handleNewFileAdd={handleNewFileAdd}

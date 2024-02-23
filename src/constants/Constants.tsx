@@ -19,3 +19,6 @@ reportTypeOptionToIconMap.set('Customer', 'people');
 reportTypeOptionToIconMap.set('Sales', 'cart');
 reportTypeOptionToIconMap.set('Revenue', 'currency-dollar');
 
+
+
+export const backendserver = 'https://one-dollar-admin.onrender.com'

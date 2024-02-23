@@ -1,5 +1,5 @@
 module.exports = {
     env: {
-        backendserver: 'https://one-dollar-admin.onrender.com'
-    }
+        NEXT_PUBLIC_BACKEND_SERVER: 'https://one-dollar-admin.onrender.com'
+    },
 }

@@ -5,6 +5,7 @@ import Table from "@/components/Table";
 import {useRouter} from "next/navigation";
 import Skeleton from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css'
+import {backendserver} from "@/constants/Constants";
 
 interface Review {
     id: string;
@@ -39,7 +40,7 @@ export default function LoadReviewList() {
 
  async function ReviewList() {
     const router = useRouter();
-    const response = await fetch(process.env.backendserver + "/review/list", {
+    const response = await fetch(backendserver + "/review/list", {
         next: {revalidate: 20}
     });
 

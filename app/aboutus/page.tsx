@@ -7,6 +7,7 @@ import Button from "@/components/Button";
 import {useRouter} from "next/navigation";
 import axios from "axios";
 import Image from "@/components/Image";
+import {backendserver} from "@/constants/Constants";
 
 export default function ReviewCreate() {
     const router = useRouter();
@@ -29,7 +30,7 @@ export default function ReviewCreate() {
 
     useEffect(() => {
         axios
-            .get(process.env.backendserver + '/aboutus')
+            .get(backendserver + '/aboutus')
             .then((response) => {
                 const apiData = response.data;
 
@@ -111,7 +112,7 @@ export default function ReviewCreate() {
         });
 
         axios
-            .post(process.env.backendserver + '/aboutus', formData)
+            .post(backendserver + '/aboutus', formData)
             .then((response) => {
                 console.log('About us Created');
 
@@ -144,7 +145,7 @@ export default function ReviewCreate() {
                           name="aboutUsDetails" submitting={state.submitting}/>
 
                 <Image submitting={state.submitting}
-                       imageDownloadUrl={`${process.env.backendserver}/aboutus/image`}
+                       imageDownloadUrl={`${backendserver}/aboutus/image`}
                        newBannerPhotoList={state.newPhotoList}
                        existingBannerPhotoIdList={state.existingPhotoIdList}
                        handleNewFileAdd={handleNewFileAdd}

@@ -4,6 +4,7 @@ import React, {useEffect, useState} from "react";
 import Table from "@/components/Table";
 import axios from "axios";
 import {useRouter} from "next/navigation";
+import {backendserver} from "@/constants/Constants";
 
 interface Claim {
     id: string;
@@ -19,7 +20,7 @@ export default function ClaimList({params}: { params: { customerId: string } }) 
 
     useEffect(() => {
         axios
-            .get(process.env.backendserver + '/customer/claim/' + customerId)
+            .get(backendserver + '/customer/claim/' + customerId)
             .then((response) => {
                 setClaimList(response.data);
 
