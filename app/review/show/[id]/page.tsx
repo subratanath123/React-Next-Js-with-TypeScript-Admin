@@ -8,7 +8,7 @@ import Button from "@/components/Button";
 import Image from "@/components/Image";
 import axios from "axios";
 import {useRouter} from "next/navigation";
-import {backendserver} from "@/constants/Constants";
+
 
 export default function ReviewEdit({params}: { params: { id: string } }) {
     const router = useRouter();
@@ -40,7 +40,7 @@ export default function ReviewEdit({params}: { params: { id: string } }) {
 
     useEffect(() => {
         axios
-            .get(backendserver + '/review/show/' + reviewId)
+            .get('https://one-dollar-admin.onrender.com' + '/review/show/' + reviewId)
             .then((response) => {
                 const apiData = response.data;
 
@@ -119,7 +119,7 @@ export default function ReviewEdit({params}: { params: { id: string } }) {
         e.preventDefault();
 
         axios
-            .post(backendserver + '/review/delete/' + reviewId)
+            .post('https://one-dollar-admin.onrender.com' + '/review/delete/' + reviewId)
             .then(() => {
                 console.log('Review Deleted');
 
@@ -166,7 +166,7 @@ export default function ReviewEdit({params}: { params: { id: string } }) {
         });
 
         axios
-            .post(backendserver + '/review/create', formData)
+            .post('https://one-dollar-admin.onrender.com' + '/review/create', formData)
             .then((response) => {
                 console.log('Review Created');
 
@@ -218,7 +218,7 @@ export default function ReviewEdit({params}: { params: { id: string } }) {
                           name="clientReview" submitting={state.submitting}/>
 
                 <Image submitting={state.submitting}
-                       imageDownloadUrl={`${backendserver}/review/image`}
+                       imageDownloadUrl={`${'https://one-dollar-admin.onrender.com'}/review/image`}
                        newBannerPhotoList={state.newClientPhotoList}
                        existingBannerPhotoIdList={state.existingClientPhotoIdList}
                        handleNewFileAdd={handleNewFileAdd}

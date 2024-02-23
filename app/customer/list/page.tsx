@@ -5,7 +5,7 @@ import Table from "@/components/Table";
 import {useRouter} from "next/navigation";
 import Skeleton from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css'
-import {backendserver} from "@/constants/Constants";
+
 
 interface Customer {
     id: string;
@@ -38,7 +38,7 @@ export default function LoadCustomerList() {
 
  async function CustomerList() {
     const router = useRouter();
-    const response = await fetch(backendserver + "/customer/list", {
+    const response = await fetch('https://one-dollar-admin.onrender.com' + "/customer/list", {
         next: {revalidate: 20}
     });
 

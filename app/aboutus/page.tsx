@@ -7,7 +7,7 @@ import Button from "@/components/Button";
 import {useRouter} from "next/navigation";
 import axios from "axios";
 import Image from "@/components/Image";
-import {backendserver} from "@/constants/Constants";
+
 
 export default function ReviewCreate() {
     const router = useRouter();
@@ -30,7 +30,7 @@ export default function ReviewCreate() {
 
     useEffect(() => {
         axios
-            .get(backendserver + '/aboutus')
+            .get('https://one-dollar-admin.onrender.com' + '/aboutus')
             .then((response) => {
                 const apiData = response.data;
 
@@ -112,7 +112,7 @@ export default function ReviewCreate() {
         });
 
         axios
-            .post(backendserver + '/aboutus', formData)
+            .post('https://one-dollar-admin.onrender.com' + '/aboutus', formData)
             .then((response) => {
                 console.log('About us Created');
 
@@ -145,7 +145,7 @@ export default function ReviewCreate() {
                           name="aboutUsDetails" submitting={state.submitting}/>
 
                 <Image submitting={state.submitting}
-                       imageDownloadUrl={`${backendserver}/aboutus/image`}
+                       imageDownloadUrl={`${'https://one-dollar-admin.onrender.com'}/aboutus/image`}
                        newBannerPhotoList={state.newPhotoList}
                        existingBannerPhotoIdList={state.existingPhotoIdList}
                        handleNewFileAdd={handleNewFileAdd}

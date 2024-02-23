@@ -5,7 +5,7 @@ import Table from "@/components/Table";
 import {useRouter} from "next/navigation";
 import Skeleton from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css'
-import {backendserver} from "@/constants/Constants";
+
 
 interface Banner {
     id: string;
@@ -39,7 +39,7 @@ export default function LoadBannerList() {
 
  async function BannerList() {
     const router = useRouter();
-    const response = await fetch(backendserver + "/banner/vipOffer/list", {
+    const response = await fetch('https://one-dollar-admin.onrender.com' + "/banner/vipOffer/list", {
         next: {revalidate: 20}
     });
 
