@@ -29,6 +29,7 @@ export default function ShowBanner({params}: { params: { id: string } }) {
         validityTo: string,
         bannerDetails: string,
         bannerCategory: string,
+        bannerSubtitle: string,
         offerCategory: string
     }>({
         submitting: true,
@@ -43,6 +44,7 @@ export default function ShowBanner({params}: { params: { id: string } }) {
         validityFrom: '',
         validityTo: '',
         bannerDetails: '',
+        bannerSubtitle: '',
         bannerCategory: 'SlideBanner',
         offerCategory: 'CasinoOffer'
     });
@@ -65,6 +67,7 @@ export default function ShowBanner({params}: { params: { id: string } }) {
                     validityFrom: apiData.validityFrom,
                     validityTo: apiData.validityTo,
                     bannerDetails: apiData.bannerDetails,
+                    bannerSubtitle: apiData.bannerSubtitle,
                     bannerCategory: apiData.bannerCategory,
                     offerCategory: apiData.offerCategory
                 }));
@@ -155,6 +158,7 @@ export default function ShowBanner({params}: { params: { id: string } }) {
         formData.append('validityFrom', state.validityFrom);
         formData.append('validityTo', state.validityTo);
         formData.append('bannerDetails', state.bannerDetails);
+        formData.append('bannerSubtitle', state.bannerSubtitle);
         formData.append('bannerCategory', state.bannerCategory);
         formData.append('offerCategory', state.offerCategory);
 
@@ -241,6 +245,12 @@ export default function ShowBanner({params}: { params: { id: string } }) {
                 <InputSelect name="offerCategory" label="Offer Type" options={offerTypeOptions}
                              submitting={state.submitting} value={state.offerCategory}
                              handleOptionSelect={handleOptionSelectChange}/>
+
+                <Input name="bannerDetails" title="Banner Details" type="text" value={state.bannerDetails} submitting={state.submitting}
+                       onInputChange={handleInputChange}/>
+
+                <Input name="bannerSubtitle" title="Banner Subtitle" type="text" value={state.bannerSubtitle} submitting={state.submitting}
+                       onInputChange={handleInputChange}/>
 
                 <Input name="order" title="Banner Order" type="text" value={state.order} submitting={state.submitting}
                        onInputChange={handleInputChange}/>

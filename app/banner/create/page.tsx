@@ -24,6 +24,7 @@ export default function BannerCreate() {
         validityFrom: string,
         validityTo: string,
         bannerDetails: string,
+        bannerSubtitle: string,
         bannerCategory: string,
         offerCategory: string
 
@@ -36,6 +37,7 @@ export default function BannerCreate() {
         validityFrom: '',
         validityTo: '',
         bannerDetails: '',
+        bannerSubtitle: '',
         bannerCategory: 'SlideBanner',
         offerCategory: 'CasinoOffer'
     });
@@ -101,6 +103,7 @@ export default function BannerCreate() {
         formData.append('validityFrom', state.validityFrom);
         formData.append('validityTo', state.validityTo);
         formData.append('bannerDetails', state.bannerDetails);
+        formData.append('bannerSubtitle', state.bannerSubtitle);
         formData.append('bannerCategory', state.bannerCategory);
         formData.append('offerCategory', state.offerCategory);
 
@@ -148,6 +151,12 @@ export default function BannerCreate() {
                 <InputSelect name="offerCategory" label="Offer Type" options={offerTypeOptions}
                              submitting={state.submitting} value={state.offerCategory}
                              handleOptionSelect={handleOptionSelectChange}/>
+
+                <Input name="bannerDetails" title="Banner Details" type="text" value={state.bannerDetails} submitting={state.submitting}
+                       onInputChange={handleInputChange}/>
+
+                <Input name="bannerSubtitle" title="Banner Subtitle" type="text" value={state.bannerSubtitle} submitting={state.submitting}
+                       onInputChange={handleInputChange}/>
 
                 <Input name="order" title="Banner Order" type="text" value={state.order} submitting={state.submitting}
                        onInputChange={handleInputChange}/>

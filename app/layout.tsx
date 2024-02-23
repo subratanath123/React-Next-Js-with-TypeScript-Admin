@@ -43,7 +43,7 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
         <header id="header" className="header fixed-top d-flex align-items-center">
 
             <div className="d-flex align-items-center justify-content-between">
-                <Link href="index.html" className="logo d-flex align-items-center">
+                <Link href="/" className="logo d-flex align-items-center">
                     <img src="assets/img/logo.png" alt=""/> <span className="d-none d-lg-block">One Dollar Admin</span>
                 </Link>
                 <i className="bi bi-list toggle-sidebar-btn"></i>

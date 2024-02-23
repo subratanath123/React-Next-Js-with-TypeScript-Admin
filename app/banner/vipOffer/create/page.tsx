@@ -23,6 +23,7 @@ export default function CreateVipOffer() {
         validityFrom: string,
         validityTo: string,
         bannerDetails: string,
+        bannerSubtitle: string,
         bannerCategory: string,
         offerCategory: string
 
@@ -35,6 +36,7 @@ export default function CreateVipOffer() {
         validityFrom: '',
         validityTo: '',
         bannerDetails: '',
+        bannerSubtitle: '',
         bannerCategory: 'SlideBanner',
         offerCategory: 'VipOffer'
     });
@@ -101,6 +103,7 @@ export default function CreateVipOffer() {
         formData.append('validityTo', state.validityTo);
         formData.append('bannerDetails', state.bannerDetails);
         formData.append('bannerCategory', state.bannerCategory);
+        formData.append('bannerSubtitle', state.bannerSubtitle);
         formData.append('offerCategory', state.offerCategory);
 
         setState({
@@ -148,6 +151,12 @@ export default function CreateVipOffer() {
                 <InputSelect name="offerCategory" label="Offer Type" options={offerTypeOptions}
                              submitting={state.submitting} value={state.offerCategory}
                              handleOptionSelect={handleOptionSelectChange}/>
+
+                <Input name="bannerDetails" title="Banner Details" type="text" value={state.bannerDetails} submitting={state.submitting}
+                       onInputChange={handleInputChange}/>
+
+                <Input name="bannerSubtitle" title="Banner Subtitle" type="text" value={state.bannerSubtitle} submitting={state.submitting}
+                       onInputChange={handleInputChange}/>
 
                 <Input name="order" title="Banner Order" type="text" value={state.order} submitting={state.submitting}
                        onInputChange={handleInputChange}/>

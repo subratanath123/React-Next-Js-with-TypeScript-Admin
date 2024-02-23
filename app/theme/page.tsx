@@ -1,7 +1,6 @@
 'use client'
 
 import React, {ChangeEvent, MouseEventHandler, useEffect, useState} from "react";
-import TextArea from "@/components/TextArea";
 import Form from "@/components/Form";
 import Button from "@/components/Button";
 import {useRouter} from "next/navigation";
@@ -96,10 +95,17 @@ export default function Theme() {
         e.preventDefault();
 
         const formData = new FormData();
-        formData.append('id', state.id);
+
+        if (!!state.id) {
+            formData.append('id', state.id);
+        }
 
         state.newPhotoList.map((photo) => {
             formData.append('photoList', photo);
+        })
+
+        state.deletedPhotoIdList && state.deletedPhotoIdList.map((photoId) => {
+            formData.append('deletedPhotoIdList', photoId);
         })
 
         setState({
