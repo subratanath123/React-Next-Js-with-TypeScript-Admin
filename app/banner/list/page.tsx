@@ -40,7 +40,7 @@ export default function LoadBannerList() {
 
 async function BannerList() {
     const router = useRouter();
-    const response = await fetch('https://one-dollar-admin.onrender.com' + "/banner/list", {
+    const response = await fetch('http://localhost:8000' + "/banner/list", {
         next: { revalidate: 20 }
     });
 

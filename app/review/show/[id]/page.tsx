@@ -40,7 +40,7 @@ export default function ReviewEdit({params}: { params: { id: string } }) {
 
     useEffect(() => {
         axios
-            .get('https://one-dollar-admin.onrender.com' + '/review/show/' + reviewId)
+            .get('http://localhost:8000' + '/review/show/' + reviewId)
             .then((response) => {
                 const apiData = response.data;
 
@@ -119,7 +119,7 @@ export default function ReviewEdit({params}: { params: { id: string } }) {
         e.preventDefault();
 
         axios
-            .post('https://one-dollar-admin.onrender.com' + '/review/delete/' + reviewId)
+            .post('http://localhost:8000' + '/review/delete/' + reviewId)
             .then(() => {
                 console.log('Review Deleted');
 
@@ -166,7 +166,7 @@ export default function ReviewEdit({params}: { params: { id: string } }) {
         });
 
         axios
-            .post('https://one-dollar-admin.onrender.com' + '/review/create', formData)
+            .post('http://localhost:8000' + '/review/create', formData)
             .then((response) => {
                 console.log('Review Created');
 
@@ -218,7 +218,7 @@ export default function ReviewEdit({params}: { params: { id: string } }) {
                           name="clientReview" submitting={state.submitting}/>
 
                 <Image submitting={state.submitting}
-                       imageDownloadUrl={`${'https://one-dollar-admin.onrender.com'}/review/image`}
+                       imageDownloadUrl={`${'http://localhost:8000'}/review/image`}
                        newBannerPhotoList={state.newClientPhotoList}
                        existingBannerPhotoIdList={state.existingClientPhotoIdList}
                        handleNewFileAdd={handleNewFileAdd}

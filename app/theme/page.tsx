@@ -27,7 +27,7 @@ export default function Theme() {
 
     useEffect(() => {
         axios
-            .get('https://one-dollar-admin.onrender.com' + '/theme')
+            .get('http://localhost:8000' + '/theme')
             .then((response) => {
                 const apiData = response.data;
 
@@ -114,7 +114,7 @@ export default function Theme() {
         });
 
         axios
-            .post('https://one-dollar-admin.onrender.com' + '/theme', formData)
+            .post('http://localhost:8000' + '/theme', formData)
             .then((response) => {
                 console.log('About us Created');
 
@@ -143,7 +143,7 @@ export default function Theme() {
         <>
             <Form title="Edit Site Theme">
                 <Image submitting={state.submitting}
-                       imageDownloadUrl={`${'https://one-dollar-admin.onrender.com'}/theme/image`}
+                       imageDownloadUrl={`${'http://localhost:8000'}/theme/image`}
                        newBannerPhotoList={state.newPhotoList}
                        existingBannerPhotoIdList={state.existingPhotoIdList}
                        handleNewFileAdd={handleNewFileAdd}

@@ -51,7 +51,7 @@ export default function ShowBanner({params}: { params: { id: string } }) {
 
     useEffect(() => {
         axios
-            .get('https://one-dollar-admin.onrender.com' + '/banner/show/' + bannerId)
+            .get('http://localhost:8000' + '/banner/show/' + bannerId)
             .then((response) => {
                 const apiData = response.data;
 
@@ -168,7 +168,7 @@ export default function ShowBanner({params}: { params: { id: string } }) {
         });
 
         axios
-            .post('https://one-dollar-admin.onrender.com' + '/banner/show/' + bannerId, formData)
+            .post('http://localhost:8000' + '/banner/show/' + bannerId, formData)
             .then(() => {
                 console.log('Banner Updated');
 
@@ -197,7 +197,7 @@ export default function ShowBanner({params}: { params: { id: string } }) {
         e.preventDefault();
 
         axios
-            .post('https://one-dollar-admin.onrender.com' + '/banner/delete/' + bannerId)
+            .post('http://localhost:8000' + '/banner/delete/' + bannerId)
             .then(() => {
                 console.log('Banner Deleted');
 
@@ -260,7 +260,7 @@ export default function ShowBanner({params}: { params: { id: string } }) {
                        onInputChange={handleInputChange}/>
 
                 <Image submitting={state.submitting}
-                       imageDownloadUrl={`${'https://one-dollar-admin.onrender.com'}/banner/image`}
+                       imageDownloadUrl={`${'http://localhost:8000'}/banner/image`}
                        newBannerPhotoList={state.newBannerPhotoList}
                        existingBannerPhotoIdList={state.existingBannerPhotoIdList}
                        handleNewFileAdd={handleNewFileAdd}

@@ -42,7 +42,7 @@ export default function Dashboard() {
 
     function getStatistics(statType: string, statRange: string) {
         axios
-            .get('https://one-dollar-admin.onrender.com' + '/statistics?statType=' + statType + "&statRange=" + statRange)
+            .get('http://localhost:8000' + '/statistics?statType=' + statType + "&statRange=" + statRange)
             .then((response: any) => {
                 if (statType == 'Sales') {
                     setSalesReportProps({
@@ -134,7 +134,7 @@ export default function Dashboard() {
 
     function getInsights(statType: string, statRange: string) {
         axios
-            .get('https://one-dollar-admin.onrender.com' + '/statistics/insights?statType=' + statType + "&statRange=" + statRange)
+            .get('http://localhost:8000' + '/statistics/insights?statType=' + statType + "&statRange=" + statRange)
             .then((response: any) => {
                 if (statType == 'Customer') {
                     setCustomerInsightProps({

@@ -112,7 +112,7 @@ export default function CreateVipOffer() {
         });
 
         axios
-            .post('https://one-dollar-admin.onrender.com' + '/banner/create', formData)
+            .post('http://localhost:8000' + '/banner/create', formData)
             .then((response) => {
                 console.log('Banner Created');
 
@@ -166,7 +166,7 @@ export default function CreateVipOffer() {
                        onInputChange={handleInputChange}/>
 
                 <Image submitting={state.submitting}
-                       imageDownloadUrl={`${'https://one-dollar-admin.onrender.com'}/banner/image`}
+                       imageDownloadUrl={`${'http://localhost:8000'}/banner/image`}
                        newBannerPhotoList={state.newBannerPhotoList}
                        existingBannerPhotoIdList={[]}
                        handleNewFileAdd={handleNewFileAdd}

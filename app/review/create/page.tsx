@@ -90,7 +90,7 @@ export default function ReviewCreate() {
         });
 
         axios
-            .post('https://one-dollar-admin.onrender.com' + '/review/create', formData)
+            .post('http://localhost:8000' + '/review/create', formData)
             .then((response) => {
                 console.log('Banner Created');
 
@@ -129,7 +129,7 @@ export default function ReviewCreate() {
                           name="clientReview" submitting={state.submitting}/>
 
                 <Image submitting={state.submitting}
-                       imageDownloadUrl={`${'https://one-dollar-admin.onrender.com'}/review/image`}
+                       imageDownloadUrl={`${'http://localhost:8000'}/review/image`}
                        newBannerPhotoList={state.newClientPhotoList}
                        existingBannerPhotoIdList={[]}
                        handleNewFileAdd={handleNewFileAdd}

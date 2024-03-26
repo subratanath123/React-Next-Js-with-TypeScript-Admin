@@ -40,7 +40,7 @@ export default function LoadReviewList() {
 
  async function ReviewList() {
     const router = useRouter();
-    const response = await fetch('https://one-dollar-admin.onrender.com' + "/review/list", {
+    const response = await fetch('http://localhost:8000' + "/review/list", {
         next: {revalidate: 20}
     });
 

@@ -30,7 +30,7 @@ export default function ReviewCreate() {
 
     useEffect(() => {
         axios
-            .get('https://one-dollar-admin.onrender.com' + '/aboutus')
+            .get('http://localhost:8000' + '/aboutus')
             .then((response) => {
                 const apiData = response.data;
 
@@ -102,6 +102,10 @@ export default function ReviewCreate() {
         formData.append('id', state.id);
         formData.append('aboutUsDetails', state.aboutUsDetails);
 
+        state.deletedPhotoIdList && state.deletedPhotoIdList.map((photoId) => {
+            formData.append('deletedPhotoIdList', photoId);
+        })
+
         state.newPhotoList.map((photo: any) => {
             formData.append('photoList', photo);
         })
@@ -112,7 +116,7 @@ export default function ReviewCreate() {
         });
 
         axios
-            .post('https://one-dollar-admin.onrender.com' + '/aboutus', formData)
+            .post('http://localhost:8000' + '/aboutus', formData)
             .then((response) => {
                 console.log('About us Created');
 
@@ -145,7 +149,7 @@ export default function ReviewCreate() {
                           name="aboutUsDetails" submitting={state.submitting}/>
 
                 <Image submitting={state.submitting}
-                       imageDownloadUrl={`${'https://one-dollar-admin.onrender.com'}/aboutus/image`}
+                       imageDownloadUrl={`${'http://localhost:8000'}/aboutus/image`}
                        newBannerPhotoList={state.newPhotoList}
                        existingBannerPhotoIdList={state.existingPhotoIdList}
                        handleNewFileAdd={handleNewFileAdd}

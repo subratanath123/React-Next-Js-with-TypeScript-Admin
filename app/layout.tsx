@@ -1,6 +1,5 @@
 import React from "react";
 import Script from 'next/script'
-import Head from "next/head";
 import Link from "next/link";
 
 export default function RootLayout({children}: { children: React.ReactNode }) {

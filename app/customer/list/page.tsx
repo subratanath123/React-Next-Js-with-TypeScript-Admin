@@ -38,7 +38,7 @@ export default function LoadCustomerList() {
 
  async function CustomerList() {
     const router = useRouter();
-    const response = await fetch('https://one-dollar-admin.onrender.com' + "/customer/list", {
+    const response = await fetch('http://localhost:8000' + "/customer/list", {
         next: {revalidate: 20}
     });
 

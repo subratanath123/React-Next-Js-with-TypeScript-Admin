@@ -20,7 +20,7 @@ export default function ClaimList({params}: { params: { customerId: string } }) 
 
     useEffect(() => {
         axios
-            .get('https://one-dollar-admin.onrender.com' + '/customer/claim/' + customerId)
+            .get('http://localhost:8000' + '/customer/claim/' + customerId)
             .then((response) => {
                 setClaimList(response.data);
 
