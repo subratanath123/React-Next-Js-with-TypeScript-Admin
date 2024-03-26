@@ -102,6 +102,10 @@ export default function ReviewCreate() {
         formData.append('id', state.id);
         formData.append('aboutUsDetails', state.aboutUsDetails);
 
+        state.deletedPhotoIdList && state.deletedPhotoIdList.map((photoId) => {
+            formData.append('deletedPhotoIdList', photoId);
+        })
+
         state.newPhotoList.map((photo: any) => {
             formData.append('photoList', photo);
         })
