@@ -4,6 +4,7 @@ import React, {useEffect, useState} from "react";
 import Table from "@/components/Table";
 import axios from "axios";
 import {useRouter} from "next/navigation";
+import {getCookie} from "cookies-next";
 
 
 interface Claim {
@@ -20,7 +21,12 @@ export default function ClaimList({params}: { params: { customerId: string } }) 
 
     useEffect(() => {
         axios
-            .get('https://one-dollar-admin.onrender.com' + '/customer/claim/' + customerId)
+            .get('https://one-dollar-admin.onrender.com' + '/customer/claim/' + customerId,
+                {
+                    headers: {
+                        'Authorization': 'Bearer ' + getCookie("__session")
+                    }
+                })
             .then((response) => {
                 setClaimList(response.data);
 

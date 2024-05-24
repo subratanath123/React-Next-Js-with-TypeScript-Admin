@@ -2,6 +2,7 @@ import React, {FC, ChangeEvent, ReactNode} from 'react';
 
 interface FormProps {
     title: ReactNode;
+    validated?: boolean;
     children: ReactNode;
 }
 
@@ -16,7 +17,7 @@ const Form: FC<FormProps> = (props) => {
                         <div className="card">
                             <div className="card-body">
                                 <h5 className="card-title">{props.title}</h5>
-                                <form>
+                                <form className={props.validated? 'was-validated':''}>
                                     {props.children}
                                 </form>
                             </div>

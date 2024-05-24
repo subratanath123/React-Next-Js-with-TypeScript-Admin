@@ -8,6 +8,7 @@ import Button from "@/components/Button";
 import Image from "@/components/Image";
 import axios from "axios";
 import {useRouter} from "next/navigation";
+import {getCookie} from "cookies-next";
 
 
 export default function ReviewCreate() {
@@ -90,7 +91,12 @@ export default function ReviewCreate() {
         });
 
         axios
-            .post('https://one-dollar-admin.onrender.com' + '/review/create', formData)
+            .post('https://one-dollar-admin.onrender.com' + '/review/create/exceptOnlineGame', formData,
+                {
+                    headers: {
+                        'Authorization': 'Bearer ' + getCookie("__session")
+                    }
+                })
             .then((response) => {
                 console.log('Banner Created');
 
@@ -130,8 +136,9 @@ export default function ReviewCreate() {
 
                 <Image submitting={state.submitting}
                        imageDownloadUrl={`${'https://one-dollar-admin.onrender.com'}/review/image`}
-                       newBannerPhotoList={state.newClientPhotoList}
-                       existingBannerPhotoIdList={[]}
+                       newOfferPhotoList={state.newClientPhotoList}
+                       existingOfferPhotoIdList={[]}
+                       canRemove={true}
                        handleNewFileAdd={handleNewFileAdd}
                        handleExistingFileRemove={(e, index) => {}}
                        handleTransientFileRemove={handleTransientFileRemove}/>

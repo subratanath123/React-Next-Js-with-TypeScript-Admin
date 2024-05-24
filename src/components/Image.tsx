@@ -3,18 +3,24 @@ import Input from "@/components/Input";
 
 interface ImageProps {
     submitting: boolean;
+    required?: boolean;
+    errors?: string;
     imageDownloadUrl: string;
-    newBannerPhotoList: any[];
-    existingBannerPhotoIdList: any[];
+    newOfferPhotoList: any[];
+    existingOfferPhotoIdList: any[];
     handleNewFileAdd: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    canRemove: boolean,
     handleExistingFileRemove: (e: React.MouseEvent<HTMLButtonElement>, index: number, deletedPhotoId: any) => void;
     handleTransientFileRemove: (e: React.MouseEvent<HTMLButtonElement>, index: number) => void;
 }
 
 const Image: React.FC<ImageProps> = ({
-                                         existingBannerPhotoIdList,
-                                         newBannerPhotoList,
+                                         existingOfferPhotoIdList,
+                                         newOfferPhotoList,
                                          imageDownloadUrl,
+                                         required = false,
+                                         canRemove = true,
+                                         errors,
                                          submitting,
                                          handleExistingFileRemove,
                                          handleTransientFileRemove,
@@ -35,10 +41,11 @@ const Image: React.FC<ImageProps> = ({
         <>
             <Input name="photoList" title="Upload Photo" type="file" value=""
                    submitting={submitting}
-                   onInputChange={handleNewFileAdd}/>
+                   onInputChange={handleNewFileAdd}
+                   required={required} errors={errors}/>
 
             <div className="row mb-3">
-                {existingBannerPhotoIdList && existingBannerPhotoIdList.map((photoId, index) => (
+                {existingOfferPhotoIdList && existingOfferPhotoIdList.map((photoId, index) => (
                     <>
                         <div className="col-sm-4">
                             <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}
@@ -58,18 +65,23 @@ const Image: React.FC<ImageProps> = ({
                                 style={{maxWidth: '100%'}}
                             ></img>
 
-                            <button type="button" className="btn btn-outline-danger" aria-label="Close"
-                                    key={`remove-${photoId}`}
-                                    style={{width: "100%", display: "block"}}
-                                    onClick={(event) => handleExistingFileRemove(event, index, photoId)}>
-                                Remove
-                            </button>
+                            {
+                                canRemove
+                                &&
+                                <button type="button" className="btn btn-outline-danger" aria-label="Close"
+                                        key={`remove-${photoId}`}
+                                        style={{width: "100%", display: "block"}}
+                                        onClick={(event) => handleExistingFileRemove(event, index, photoId)}>
+                                    Remove
+                                </button>
+                            }
+
 
                         </div>
                     </>
                 ))}
 
-                {newBannerPhotoList && newBannerPhotoList.map((photo, index) => (
+                {newOfferPhotoList && newOfferPhotoList.map((photo, index) => (
                     <>
                         <div className="col-sm-4">
                             <img
@@ -80,12 +92,16 @@ const Image: React.FC<ImageProps> = ({
                                 style={{maxWidth: '100%'}}
                             />
 
+                            {
+                                canRemove
+                                &&
                             <button type="button" className="btn btn-outline-danger" aria-label="Close"
                                     key={`remove-${index}`}
                                     style={{width: "100%", display: "block"}}
                                     onClick={(event) => handleTransientFileRemove(event, index)}>
                                 Remove
                             </button>
+                            }
 
                         </div>
                     </>

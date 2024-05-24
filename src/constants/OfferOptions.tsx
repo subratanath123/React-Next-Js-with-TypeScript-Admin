@@ -1,4 +1,4 @@
-export const bannerCategoryOptions = [
+export const offerOptions = [
     {value: 'Offer', label: 'Offers'},
     {value: 'VipOffer', label: 'VIP Offer'},
     {value: 'SlideBanner', label: 'Sliding banner'},
@@ -8,6 +8,7 @@ export const bannerCategoryOptions = [
 
 export const offerTypeOptions = [
     {value: 'CasinoOffer', label: 'Casino Offer'},
-    {value: 'GameOffer', label: 'Game Offer'},
-    {value: 'SportsBetOffer', label: 'Sports Bet Offer'}
+    {value: 'CryptoOffer', label: 'Crypto Offer'},
+    {value: 'LotteryOffer', label: 'Lottery Offer'},
+    {value: 'SportsOffer', label: 'Sports Offer'}
 ];

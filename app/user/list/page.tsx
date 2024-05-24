@@ -5,6 +5,7 @@ import Table from "@/components/Table";
 import {useRouter} from "next/navigation";
 import Skeleton from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css'
+import {getCookie} from "cookies-next";
 
 
 interface Customer {
@@ -38,9 +39,13 @@ export default function LoadCustomerList() {
 
  async function CustomerList() {
     const router = useRouter();
-    const response = await fetch('https://one-dollar-admin.onrender.com' + "/customer/list", {
-        next: {revalidate: 20}
-    });
+    const response = await fetch('https://one-dollar-admin.onrender.com' + "/customer/list",
+        {
+            headers: {
+                'Authorization': 'Bearer ' + getCookie("__session")
+            },
+            next: {revalidate: 20}
+        });
 
     const data = await response.json();
 
@@ -100,7 +105,7 @@ export default function LoadCustomerList() {
 
     return (
         <>
-            <Table key={12} title="Vip Offer List" columns={columns} data={customerList}/>
+            <Table key={12} title="User List" columns={columns} data={customerList}/>
         </>
     );
 }

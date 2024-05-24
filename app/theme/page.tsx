@@ -6,6 +6,7 @@ import Button from "@/components/Button";
 import {useRouter} from "next/navigation";
 import axios from "axios";
 import Image from "@/components/Image";
+import {getCookie} from "cookies-next";
 
 
 export default function Theme() {
@@ -27,7 +28,12 @@ export default function Theme() {
 
     useEffect(() => {
         axios
-            .get('https://one-dollar-admin.onrender.com' + '/theme')
+            .get('https://one-dollar-admin.onrender.com' + '/theme',
+                {
+                    headers: {
+                        'Authorization': 'Bearer ' + getCookie("__session")
+                    }
+                })
             .then((response) => {
                 const apiData = response.data;
 
@@ -114,7 +120,12 @@ export default function Theme() {
         });
 
         axios
-            .post('https://one-dollar-admin.onrender.com' + '/theme', formData)
+            .post('https://one-dollar-admin.onrender.com' + '/theme', formData,
+                {
+                    headers: {
+                        'Authorization': 'Bearer ' + getCookie("__session")
+                    }
+                })
             .then((response) => {
                 console.log('About us Created');
 
@@ -144,8 +155,9 @@ export default function Theme() {
             <Form title="Edit Site Theme">
                 <Image submitting={state.submitting}
                        imageDownloadUrl={`${'https://one-dollar-admin.onrender.com'}/theme/image`}
-                       newBannerPhotoList={state.newPhotoList}
-                       existingBannerPhotoIdList={state.existingPhotoIdList}
+                       newOfferPhotoList={state.newPhotoList}
+                       existingOfferPhotoIdList={state.existingPhotoIdList}
+                       canRemove={true}
                        handleNewFileAdd={handleNewFileAdd}
                        handleExistingFileRemove={handleExistingFileRemove}
                        handleTransientFileRemove={handleTransientFileRemove}/>

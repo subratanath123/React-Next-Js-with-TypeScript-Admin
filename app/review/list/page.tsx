@@ -5,6 +5,7 @@ import Table from "@/components/Table";
 import {useRouter} from "next/navigation";
 import Skeleton from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css'
+import {getCookie} from "cookies-next";
 
 
 interface Review {
@@ -40,9 +41,13 @@ export default function LoadReviewList() {
 
  async function ReviewList() {
     const router = useRouter();
-    const response = await fetch('https://one-dollar-admin.onrender.com' + "/review/list", {
-        next: {revalidate: 20}
-    });
+    const response = await fetch('https://one-dollar-admin.onrender.com' + "/review/list",
+        {
+            headers: {
+                'Authorization': 'Bearer ' + getCookie("__session")
+            },
+            next: {revalidate: 20}
+        });
 
     const data = await response.json();
 

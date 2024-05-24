@@ -7,6 +7,7 @@ import Button from "@/components/Button";
 import {useRouter} from "next/navigation";
 import axios from "axios";
 import Image from "@/components/Image";
+import {getCookie} from "cookies-next";
 
 
 export default function ReviewCreate() {
@@ -30,7 +31,12 @@ export default function ReviewCreate() {
 
     useEffect(() => {
         axios
-            .get('https://one-dollar-admin.onrender.com' + '/aboutus')
+            .get('https://one-dollar-admin.onrender.com' + '/aboutus',
+                {
+                    headers: {
+                        'Authorization': 'Bearer ' + getCookie("__session")
+                    }
+                })
             .then((response) => {
                 const apiData = response.data;
 
@@ -116,7 +122,12 @@ export default function ReviewCreate() {
         });
 
         axios
-            .post('https://one-dollar-admin.onrender.com' + '/aboutus', formData)
+            .post('https://one-dollar-admin.onrender.com' + '/aboutus', formData,
+                {
+                    headers: {
+                        'Authorization': 'Bearer ' + getCookie("__session")
+                    }
+                })
             .then((response) => {
                 console.log('About us Created');
 
@@ -150,11 +161,12 @@ export default function ReviewCreate() {
 
                 <Image submitting={state.submitting}
                        imageDownloadUrl={`${'https://one-dollar-admin.onrender.com'}/aboutus/image`}
-                       newBannerPhotoList={state.newPhotoList}
-                       existingBannerPhotoIdList={state.existingPhotoIdList}
+                       newOfferPhotoList={state.newPhotoList}
+                       existingOfferPhotoIdList={state.existingPhotoIdList}
                        handleNewFileAdd={handleNewFileAdd}
                        handleExistingFileRemove={handleExistingFileRemove}
-                       handleTransientFileRemove={handleTransientFileRemove}/>
+                       handleTransientFileRemove={handleTransientFileRemove}
+                       canRemove={true}/>
 
                 <Button buttonType="primary" name="Update" type="submit" onSubmit={handleFormUpdate}
                         submitting={state.submitting}/>

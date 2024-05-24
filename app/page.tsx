@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import ReportCard from "@/components/ReportCard";
 import LineChart from "@/components/LineChart";
 import axios from "axios";
+import {getCookie} from "cookies-next";
 
 
 export default function Dashboard() {
@@ -42,7 +43,12 @@ export default function Dashboard() {
 
     function getStatistics(statType: string, statRange: string) {
         axios
-            .get('https://one-dollar-admin.onrender.com' + '/statistics?statType=' + statType + "&statRange=" + statRange)
+            .get('https://one-dollar-admin.onrender.com' + '/statistics?statType=' + statType + "&statRange=" + statRange,
+                {
+                    headers: {
+                        'Authorization': 'Bearer ' + getCookie("__session")
+                    }
+                })
             .then((response: any) => {
                 if (statType == 'Sales') {
                     setSalesReportProps({
@@ -134,7 +140,12 @@ export default function Dashboard() {
 
     function getInsights(statType: string, statRange: string) {
         axios
-            .get('https://one-dollar-admin.onrender.com' + '/statistics/insights?statType=' + statType + "&statRange=" + statRange)
+            .get('https://one-dollar-admin.onrender.com' + '/statistics/insights?statType=' + statType + "&statRange=" + statRange,
+                {
+                    headers: {
+                        'Authorization': 'Bearer ' + getCookie("__session")
+                    }
+                })
             .then((response: any) => {
                 if (statType == 'Customer') {
                     setCustomerInsightProps({

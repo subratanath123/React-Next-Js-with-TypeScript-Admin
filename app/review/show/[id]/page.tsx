@@ -8,6 +8,7 @@ import Button from "@/components/Button";
 import Image from "@/components/Image";
 import axios from "axios";
 import {useRouter} from "next/navigation";
+import {getCookie} from "cookies-next";
 
 
 export default function ReviewEdit({params}: { params: { id: string } }) {
@@ -40,7 +41,12 @@ export default function ReviewEdit({params}: { params: { id: string } }) {
 
     useEffect(() => {
         axios
-            .get('https://one-dollar-admin.onrender.com' + '/review/show/' + reviewId)
+            .get('https://one-dollar-admin.onrender.com' + '/review/show/' + reviewId,
+                {
+                    headers: {
+                        'Authorization': 'Bearer ' + getCookie("__session")
+                    }
+                })
             .then((response) => {
                 const apiData = response.data;
 
@@ -119,7 +125,12 @@ export default function ReviewEdit({params}: { params: { id: string } }) {
         e.preventDefault();
 
         axios
-            .post('https://one-dollar-admin.onrender.com' + '/review/delete/' + reviewId)
+            .post('https://one-dollar-admin.onrender.com' + '/review/delete/' + reviewId, null,
+                {
+                    headers: {
+                        'Authorization': 'Bearer ' + getCookie("__session")
+                    }
+                })
             .then(() => {
                 console.log('Review Deleted');
 
@@ -166,7 +177,12 @@ export default function ReviewEdit({params}: { params: { id: string } }) {
         });
 
         axios
-            .post('https://one-dollar-admin.onrender.com' + '/review/create', formData)
+            .post('https://one-dollar-admin.onrender.com' + '/review/create/exceptOnlineGame', formData,
+                {
+                    headers: {
+                        'Authorization': 'Bearer ' + getCookie("__session")
+                    }
+                })
             .then((response) => {
                 console.log('Review Created');
 
@@ -219,9 +235,10 @@ export default function ReviewEdit({params}: { params: { id: string } }) {
 
                 <Image submitting={state.submitting}
                        imageDownloadUrl={`${'https://one-dollar-admin.onrender.com'}/review/image`}
-                       newBannerPhotoList={state.newClientPhotoList}
-                       existingBannerPhotoIdList={state.existingClientPhotoIdList}
+                       newOfferPhotoList={state.newClientPhotoList}
+                       existingOfferPhotoIdList={state.existingClientPhotoIdList}
                        handleNewFileAdd={handleNewFileAdd}
+                       canRemove={true}
                        handleExistingFileRemove={handleExistingFileRemove}
                        handleTransientFileRemove={handleTransientFileRemove}/>
 

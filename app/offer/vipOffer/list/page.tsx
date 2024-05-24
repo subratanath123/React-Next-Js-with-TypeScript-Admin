@@ -5,19 +5,24 @@ import Table from "@/components/Table";
 import {useRouter} from "next/navigation";
 import Skeleton from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css'
+import {getCookie} from "cookies-next";
 
 
-interface Banner {
+interface Offer {
     id: string;
-    link: string;
-    bannerCategory: string;
-    offerCategory: string;
-    bannerDetails: string;
-    order: string;
-    validityFrom: string;
-    validityTo: string;
-    buttonName: string;
-    deleted: string;
+    submitting: boolean,
+    offerCategory: string,
+    offerType: string
+    link: string,
+    details: string,
+    title: string,
+    subtitle: string,
+    buttonName: string,
+    photoList: File[],
+    order: string,
+    validityFrom: string,
+    validityTo: string,
+    deleted: string
 }
 
 export default function LoadBannerList() {
@@ -32,24 +37,28 @@ export default function LoadBannerList() {
                     <Skeleton count={10} height={20}/>
                 </>
             }>
-                <BannerList/>
+                <VipOfferList/>
             </Suspense>
         </section>
     )
 }
 
-async function BannerList() {
+ async function VipOfferList() {
     const router = useRouter();
-    const response = await fetch('https://one-dollar-admin.onrender.com' + "/banner/list", {
-        next: { revalidate: 20 }
-    });
+    const response = await fetch('https://one-dollar-admin.onrender.com' + "/offer/VipOffer/list",
+        {
+            headers: {
+                'Authorization': 'Bearer ' + getCookie("__session")
+            },
+            next: {revalidate: 20}
+        });
 
     const data = await response.json();
 
-    const bannerList = data.map((banner: Banner) => ({
+    const bannerList = data.map((banner: Offer) => ({
         ...banner,
         clickEvent: () => {
-            router.push('/banner/show/' + banner.id);
+            router.push('/offer/show/' + banner.id);
         },
     }));
 
@@ -64,32 +73,32 @@ async function BannerList() {
             },
         },
         {
-            label: 'BannerCategory',
-            field: 'bannerCategory',
-            width: 270,
-        },
-        {
-            label: 'offerCategory',
+            label: 'Offer Category',
             field: 'offerCategory',
             width: 270,
         },
         {
-            label: 'Banner Details',
-            field: 'bannerDetails',
+            label: 'Offer Type',
+            field: 'offerType',
             width: 270,
         },
         {
-            label: 'Banner Order',
+            label: 'Promotion Line',
+            field: 'details',
+            width: 270,
+        },
+        {
+            label: 'Offer Order',
             field: 'order',
             width: 270,
         },
         {
-            label: 'Banner Validity From',
+            label: 'Offer Validity From',
             field: 'validityFrom',
             width: 270,
         },
         {
-            label: 'Banner Validity To',
+            label: 'Offer Validity To',
             field: 'validityTo',
             width: 270,
         },
@@ -101,7 +110,7 @@ async function BannerList() {
     ];
     return (
         <>
-            <Table key={12} title="Banner List" columns={columns} data={bannerList}/>
+            <Table key={12} title="Vip Offer List" columns={columns} data={bannerList}/>
         </>
     );
 }

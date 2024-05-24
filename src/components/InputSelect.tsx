@@ -6,19 +6,20 @@ interface SelectProps {
     label: string;
     submitting: boolean;
     value: string;
+    errors: string;
     options: { value: string; label: string }[];
     handleOptionSelect: (value : ChangeEvent<HTMLSelectElement>) => void;
 }
 
-const InputSelect: FC<SelectProps> = ({name, label, value, options, submitting, handleOptionSelect}) => {
+const InputSelect: FC<SelectProps> = ({name, label, value, errors, options, submitting, handleOptionSelect}) => {
     const onOptionSelect = (event: ChangeEvent<HTMLSelectElement>) => {
         handleOptionSelect(event);
     };
 
     return (
         <div className="row mb-3">
-            <label htmlFor="floatingSelect" className="col-sm-2 col-form-label">{label}</label>
-            <div className=" col-sm-10">
+            <div className=" col-sm-10 position-relative">
+                <label htmlFor="floatingSelect" className="col-sm-2 col-form-label form-label">{label}</label>
                 <select className="form-select" name={name} id="floatingSelect" aria-label={label} disabled={submitting} value={value} onChange={onOptionSelect}>
                     {options.map((option, index) => (
                         <option key={index} value={option.value}>
@@ -26,6 +27,9 @@ const InputSelect: FC<SelectProps> = ({name, label, value, options, submitting, 
                         </option>
                     ))}
                 </select>
+                <div className="field-error">
+                    {errors}
+                </div>
             </div>
         </div>
     );
