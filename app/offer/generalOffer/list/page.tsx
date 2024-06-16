@@ -73,6 +73,11 @@ export default function LoadBannerList() {
             },
         },
         {
+            label: 'Country',
+            field: 'country',
+            width: 270,
+        },
+        {
             label: 'Offer Category',
             field: 'offerCategory',
             width: 270,
@@ -100,11 +105,6 @@ export default function LoadBannerList() {
         {
             label: 'Offer Validity To',
             field: 'validityTo',
-            width: 270,
-        },
-        {
-            label: 'Deleted?',
-            field: 'deleted',
             width: 270,
         }
     ];

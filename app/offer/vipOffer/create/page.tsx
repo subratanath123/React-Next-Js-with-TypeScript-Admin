@@ -9,7 +9,7 @@ import {offerTypeOptions} from "@/constants/OfferOptions";
 import {useRouter} from "next/navigation";
 import axios from "axios";
 import Image from "@/components/Image";
-import {ErrorResponse, FormError, FormState, initialError, initialState} from "@/constants/Constants";
+import {countries, ErrorResponse, FormError, FormState, initialError, initialState} from "@/constants/Constants";
 import {getCookie} from "cookies-next";
 
 
@@ -106,6 +106,7 @@ export default function CreateVipOffer() {
         formData.append('subtitle', state.formState.subtitle);
         formData.append('offerCategory', state.formState.offerCategory);
         formData.append('offerType', state.formState.offerType);
+        formData.append('country', state.formState.country);
 
         setState(prevState => ({
             ...prevState,
@@ -164,6 +165,11 @@ export default function CreateVipOffer() {
                        errors={state.formError.link}
                        onInputChange={handleInputChange}
                        required={true}/>
+
+                <InputSelect name="country" label="Country Availability" options={countries}
+                             submitting={state.formState.submitting} value={state.formState.country}
+                             errors={state.formError.country}
+                             handleOptionSelect={handleOptionSelectChange}/>
 
                 <InputSelect name="offerCategory" label="Offer Category" options={[
                     {value: 'VipOffer', label: 'Vip Offer'}]}

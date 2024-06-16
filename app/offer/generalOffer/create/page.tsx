@@ -1,6 +1,6 @@
 'use client'
 
-import { getCookie, setCookie } from 'cookies-next'
+import {getCookie} from 'cookies-next'
 import React, {ChangeEvent, MouseEventHandler, useState} from "react";
 import Form from "@/components/Form";
 import Input from "@/components/Input";
@@ -10,8 +10,7 @@ import {offerTypeOptions} from "@/constants/OfferOptions";
 import {useRouter} from "next/navigation";
 import axios from "axios";
 import Image from "@/components/Image";
-import {ErrorResponse, FormError, FormState, initialError, initialState} from "@/constants/Constants";
-import {cookies} from "next/headers";
+import {countries, ErrorResponse, FormError, FormState, initialError, initialState} from "@/constants/Constants";
 
 
 export default function CreateGeneralOffer() {
@@ -107,6 +106,7 @@ export default function CreateGeneralOffer() {
         formData.append('subtitle', state.formState.subtitle);
         formData.append('offerCategory', state.formState.offerCategory);
         formData.append('offerType', state.formState.offerType);
+        formData.append('country', state.formState.country);
 
         setState(prevState => ({
             ...prevState,
@@ -166,6 +166,11 @@ export default function CreateGeneralOffer() {
                        onInputChange={handleInputChange}
                        required={true}/>
 
+                <InputSelect name="country" label="Country Availability" options={countries}
+                             submitting={state.formState.submitting} value={state.formState.country}
+                             errors={state.formError.country}
+                             handleOptionSelect={handleOptionSelectChange}/>
+
                 <InputSelect name="offerCategory" label="Offer Category" options={[
                     {value: 'Offer', label: 'General Offer'}]}
                              submitting={state.formState.submitting} value={state.formState.offerCategory}
@@ -176,6 +181,7 @@ export default function CreateGeneralOffer() {
                              submitting={state.formState.submitting} value={state.formState.offerType}
                              errors={state.formError.offerType}
                              handleOptionSelect={handleOptionSelectChange}/>
+
 
                 <Input name="details" title="Promotion Line" type="text" value={state.formState.details}
                        submitting={state.formState.submitting}

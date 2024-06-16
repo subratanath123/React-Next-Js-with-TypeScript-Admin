@@ -34,6 +34,7 @@ const Table: FC<TableProps> = ({title, columns, data, linkColumns}) => {
                                 hover
                                 tbodyColor="indigo"
                                 dark={true}
+                                sortable={true}
                                 entriesOptions={[5, 20, 25]}
                                 entries={5}
                                 pagesAmount={4}

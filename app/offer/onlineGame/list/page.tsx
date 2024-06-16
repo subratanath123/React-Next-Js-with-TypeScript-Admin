@@ -73,6 +73,11 @@ export default function LoadBannerList() {
             },
         },
         {
+            label: 'Country',
+            field: 'country',
+            width: 270,
+        },
+        {
             label: 'Offer Category',
             field: 'offerCategory',
             width: 270,

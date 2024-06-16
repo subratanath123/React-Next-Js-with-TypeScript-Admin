@@ -9,7 +9,7 @@ import {offerOptions, offerTypeOptions} from "@/constants/OfferOptions";
 import {useRouter} from "next/navigation";
 import axios from "axios";
 import Image from "@/components/Image";
-import {ErrorResponse, FormError, FormState, initialError, initialState} from "@/constants/Constants";
+import {countries, ErrorResponse, FormError, FormState, initialError, initialState} from "@/constants/Constants";
 import {getCookie} from "cookies-next";
 
 
@@ -50,7 +50,8 @@ export default function ShowOffer({params}: { params: { id: string } }) {
                             details: apiData.details,
                             subtitle: apiData.subtitle,
                             offerCategory: apiData.offerCategory,
-                            offerType: apiData.offerType
+                            offerType: apiData.offerType,
+                            country: apiData.country,
                         }
                     }
                 ));
@@ -173,6 +174,7 @@ export default function ShowOffer({params}: { params: { id: string } }) {
         formData.append('subtitle', state.formState.subtitle);
         formData.append('offerCategory', state.formState.offerCategory);
         formData.append('offerType', state.formState.offerType);
+        formData.append('country', state.formState.country);
 
         setState(prevState => ({
             ...prevState,
@@ -275,6 +277,11 @@ export default function ShowOffer({params}: { params: { id: string } }) {
                        errors={state.formError.link}
                        required={true}
                        onInputChange={handleInputChange}/>
+
+                <InputSelect name="country" label="Country Availability" options={countries}
+                             submitting={state.formState.submitting} value={state.formState.country}
+                             errors={state.formError.country}
+                             handleOptionSelect={handleOptionSelectChange}/>
 
                 <InputSelect name="offerCategory" label="Offer Category" options={offerOptions}
                              submitting={state.formState.submitting} value={state.formState.offerCategory}
